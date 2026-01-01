@@ -1,0 +1,52 @@
+/* 页面切换动画通用样式 */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 100%);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.page-transition-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-transition-overlay.fade-out {
+  opacity: 0;
+}
+
+/* 确保非活动状态的覆盖层完全不影响交互 */
+.page-transition-overlay:not(.active) {
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 为插件页面添加过渡类 */
+.plugin-page {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.plugin-page.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 主页面进入动画 */
+.main-page {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.main-page.fading-out {
+  opacity: 0;
+}

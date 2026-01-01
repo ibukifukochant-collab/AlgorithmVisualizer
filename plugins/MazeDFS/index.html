@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷宫深度优先搜索可视化</title>
+    <link rel="stylesheet" href="/css/transition.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container plugin-page">
+        <!-- 返回按钮 -->
+        <a href="/" class="back-btn">← 返回首页</a>
+
+        <!-- 头部 -->
+        <div class="header">
+            <h1>迷宫深度优先搜索 (DFS)</h1>
+            <p>可视化展示深度优先搜索算法在迷宫中的探索过程</p>
+        </div>
+
+        <!-- 算法信息 -->
+        <div class="algorithm-info">
+            <h3>算法描述</h3>
+            <p>深度优先搜索 (DFS) 是一种用于遍历或搜索树或图的算法。在迷宫探索中，DFS 会沿着一条路径尽可能深入地探索，直到无法继续，然后回溯并尝试其他路径。</p>
+            <div class="complexity">
+                <div class="complexity-item">时间复杂度: O(V+E)</div>
+                <div class="complexity-item">空间复杂度: O(V)</div>
+            </div>
+        </div>
+
+        <!-- 迷宫参数设置 -->
+        <div class="maze-params">
+            <h3>迷宫参数</h3>
+            <div class="params-group">
+                <div class="param-item">
+                    <label for="mazeWidth">宽度:</label>
+                    <input type="number" id="mazeWidth" value="10" min="5" max="50">
+                </div>
+                <div class="param-item">
+                    <label for="mazeHeight">高度:</label>
+                    <input type="number" id="mazeHeight" value="10" min="5" max="50">
+                </div>
+                <div class="param-item">
+                    <label for="algorithmType">生成算法:</label>
+                    <select id="algorithmType">
+                        <option value="recursive-backtracker">递归回溯算法</option>
+                        <option value="prim">随机Prim算法</option>
+                    </select>
+                </div>
+                <div class="param-item">
+                    <label for="wallDensity">墙壁密度:</label>
+                    <input type="range" id="wallDensity" min="0.2" max="0.8" step="0.1" value="0.5">
+                    <span id="wallDensityValue">0.5</span>
+                </div>
+                <button class="btn btn-primary" onclick="generateMaze()">生成迷宫</button>
+                <button class="btn btn-secondary" onclick="startDFS()">开始搜索</button>
+            </div>
+        </div>
+
+        <!-- 可视化区域 -->
+        <div class="visualization-area">
+            <!-- 迷宫画布 -->
+            <div class="maze-container">
+                <canvas id="mazeCanvas"></canvas>
+            </div>
+
+            <!-- 堆栈显示 -->
+            <div class="stack-container">
+                <h3>DFS 堆栈</h3>
+                <div class="stack-info">
+                    <div class="stack-depth">
+                        <span class="depth-label">当前深度:</span>
+                        <span class="depth-value" id="currentDepth">0</span>
+                    </div>
+                    <div class="stack-size">
+                        <span class="size-label">堆栈大小:</span>
+                        <span class="size-value" id="stackSize">0</span>
+                    </div>
+                </div>
+                <div class="stack-display" id="stackDisplay"></div>
+            </div>
+        </div>
+
+        <!-- 控制面板 -->
+        <div class="controls">
+            <button class="btn btn-success" onclick="playPause()" id="playPauseBtn">播放</button>
+            <button class="btn btn-warning" onclick="reset()">重置</button>
+            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
+            <button class="btn btn-primary" onclick="nextStep()">下一步</button>
+            <div class="slider-container">
+                <label for="speedSlider">速度:</label>
+                <input type="range" id="speedSlider" class="slider" min="100" max="2000" value="500" step="100">
+                <span id="speedValue">500ms</span>
+            </div>
+        </div>
+
+        <!-- 步骤信息 -->
+        <div class="step-info">
+            <h3>当前步骤</h3>
+            <div id="stepDescription">请先生成迷宫，然后点击"开始搜索"按钮开始可视化</div>
+            <div class="step-counter">
+                <span>步骤:</span>
+                <span id="stepNumber">0</span>
+                <span>/</span>
+                <span id="totalSteps">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer plugin-page">
+        <div class="container">
+            <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/transition.js"></script>
+    <script type="module">
+        // 动态导入模块
+        import MazeDFS from './algorithm.js';
+        import MazeDFSVisualizer from './visualization.js';
+
+        // 初始化可视化器
+        const visualizer = new MazeDFSVisualizer('mazeCanvas', 'stackDisplay');
+        let maze;
+        let steps = [];
+
+        // 生成迷宫
+        function generateMaze() {
+            const width = parseInt(document.getElementById('mazeWidth').value);
+            const height = parseInt(document.getElementById('mazeHeight').value);
+            const density = parseFloat(document.getElementById('wallDensity').value);
+            const algorithm = document.getElementById('algorithmType').value;
+            
+            maze = MazeDFS.generateMaze(width, height, density, algorithm);
+            visualizer.loadMaze(maze);
+            updateStepInfo();
+        }
+
+        // 开始DFS搜索
+        function startDFS() {
+            if (!maze) {
+                alert('请先生成迷宫');
+                return;
+            }
+            
+            steps = MazeDFS.search(maze);
+            visualizer.loadSteps(steps);
+            updateStepInfo();
+        }
+
+        // 播放/暂停
+        function playPause() {
+            const btn = document.getElementById('playPauseBtn');
+            visualizer.togglePlay();
+            btn.textContent = visualizer.isPlaying ? '暂停' : '播放';
+        }
+
+        // 重置
+        function reset() {
+            const btn = document.getElementById('playPauseBtn');
+            visualizer.reset();
+            btn.textContent = '播放';
+            updateStepInfo();
+        }
+
+        // 上一步
+        function prevStep() {
+            visualizer.prevStep();
+            updateStepInfo();
+        }
+
+        // 下一步
+        function nextStep() {
+            visualizer.nextStep();
+            updateStepInfo();
+        }
+
+        // 更新步骤信息
+        function updateStepInfo() {
+            const stepInfo = visualizer.getCurrentStepInfo();
+            if (stepInfo) {
+                document.getElementById('stepDescription').textContent = stepInfo.description;
+                document.getElementById('stepNumber').textContent = visualizer.currentStep + 1;
+                document.getElementById('totalSteps').textContent = visualizer.steps.length;
+            } else {
+                document.getElementById('stepDescription').textContent = '请先生成迷宫，然后点击"开始搜索"按钮开始可视化';
+                document.getElementById('stepNumber').textContent = '0';
+                document.getElementById('totalSteps').textContent = '0';
+            }
+        }
+
+        // 速度控制
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        
+        speedSlider.addEventListener('input', (e) => {
+            const speed = parseInt(e.target.value);
+            visualizer.setSpeed(speed);
+            speedValue.textContent = speed + 'ms';
+        });
+
+        // 墙壁密度显示
+        const wallDensitySlider = document.getElementById('wallDensity');
+        const wallDensityValue = document.getElementById('wallDensityValue');
+        
+        wallDensitySlider.addEventListener('input', (e) => {
+            const density = parseFloat(e.target.value);
+            wallDensityValue.textContent = density;
+        });
+
+        // 初始化页面时生成默认迷宫
+        window.onload = function() {
+            generateMaze();
+        };
+
+        // 将函数暴露到全局作用域
+        window.generateMaze = generateMaze;
+        window.startDFS = startDFS;
+        window.playPause = playPause;
+        window.reset = reset;
+        window.prevStep = prevStep;
+        window.nextStep = nextStep;
+    </script>
+</body>
+</html>

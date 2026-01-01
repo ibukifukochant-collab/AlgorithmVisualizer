@@ -1,0 +1,12 @@
+{
+  "name": "Bubble Sort",
+  "description": "经典的冒泡排序算法可视化，展示元素两两比较并交换的过程",
+  "version": "1.0.0",
+  "author": "Algorithm Visualizer Team",
+  "category": "Sorting",
+  "thumbnail": "bubble-sort.png",
+  "main": "algorithm.js",
+  "visualization": "visualization.js",
+  "style": "style.css",
+  "entry": "index.html"
+}

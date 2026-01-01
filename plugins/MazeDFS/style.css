@@ -1,0 +1,613 @@
+/* 迷宫DFS插件样式 */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* 头部样式 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* 算法信息 */
+.algorithm-info {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-left: 5px solid #667eea;
+}
+
+.algorithm-info h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.algorithm-info p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.complexity {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.complexity-item {
+    background: rgba(102, 126, 234, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 500;
+    color: #667eea;
+}
+
+/* 迷宫参数设置 */
+.maze-params {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.maze-params h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.params-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.param-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.param-item label {
+    font-weight: 500;
+    color: #555;
+    min-width: 60px;
+}
+
+.param-item input[type="number"] {
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    width: 80px;
+    font-size: 1rem;
+}
+
+.param-item input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.param-item input[type="range"] {
+    margin: 0 10px;
+    width: 150px;
+}
+
+/* 选择框样式 */
+.param-item select {
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23666' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 32px;
+    min-width: 180px;
+}
+
+.param-item select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.param-item select:hover {
+    border-color: #667eea;
+}
+
+.param-item option {
+    padding: 8px 12px;
+    background: white;
+    color: #333;
+}
+
+.param-item option:hover,
+.param-item option:focus {
+    background: #667eea;
+    color: white;
+}
+
+/* 可视化区域 */
+.visualization-area {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* 迷宫容器 */
+.maze-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mazeCanvas {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+/* 堆栈容器 */
+.stack-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    min-width: 200px;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+.stack-container h3 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* 堆栈信息区域 */
+.stack-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+}
+
+.stack-depth, .stack-size {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.depth-label, .size-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.depth-value, .size-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.stack-display {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+/* 堆栈滚动动画 */
+.stack-display.scroll-up {
+    animation: scrollUp 0.3s ease-out;
+}
+
+.stack-display.scroll-down {
+    animation: scrollDown 0.3s ease-out;
+}
+
+@keyframes scrollUp {
+    from { transform: translateY(20px); }
+    to { transform: translateY(0); }
+}
+
+@keyframes scrollDown {
+    from { transform: translateY(-20px); }
+    to { transform: translateY(0); }
+}
+
+.stack-item {
+    background: #667eea;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stack-item .depth-info {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.stack-item.push {
+    animation: pushAnimation 0.5s ease-out;
+}
+
+.stack-item.pop {
+    animation: popAnimation 0.5s ease-in-out;
+}
+
+@keyframes pushAnimation {
+    0% { 
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        background: #43e97b;
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        background: #667eea;
+    }
+}
+
+@keyframes popAnimation {
+    0% { 
+        opacity: 1;
+        transform: scale(1);
+        background: #667eea;
+    }
+    50% { 
+        opacity: 0.8;
+        transform: scale(1.1);
+        background: #f5576c;
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+        background: #f5576c;
+    }
+}
+
+/* 控制面板 */
+.controls {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a6fd8;
+}
+
+.btn-secondary {
+    background: #4facfe;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #3a9ce6;
+}
+
+.btn-success {
+    background: #43e97b;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #37d66a;
+}
+
+.btn-warning {
+    background: #fa709a;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #f85a8a;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    min-width: 250px;
+}
+
+.slider-container label {
+    font-weight: 500;
+    color: #555;
+    min-width: 50px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #e0e0e0;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.slider:hover {
+    background: #d0d0d0;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #5a6fd8;
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: #5a6fd8;
+}
+
+/* 步骤信息 */
+.step-info {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.step-info h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#stepDescription {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    min-height: 50px;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.step-counter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.step-counter span {
+    font-weight: 500;
+    color: #555;
+}
+
+#stepNumber {
+    font-weight: 600;
+    color: #667eea;
+    font-size: 1.2rem;
+}
+
+/* 返回按钮 */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #667eea;
+    align-self: flex-start;
+}
+
+.back-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* 底部样式 */
+.footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    text-align: center;
+    color: #666;
+    margin-top: 40px;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .visualization-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stack-container {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .params-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .param-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .param-item input[type="number"] {
+        width: 100%;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .slider-container {
+        margin-left: 0;
+        min-width: auto;
+    }
+    
+    .complexity {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* 画布容器 */
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* 确保画布居中 */
+#mazeCanvas {
+    margin: 0 auto;
+    display: block;
+}

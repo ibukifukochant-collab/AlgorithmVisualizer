@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冒泡排序可视化</title>
+    <link rel="stylesheet" href="/css/transition.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container plugin-page">
+        <!-- 返回按钮 -->
+        <a href="/" class="back-btn">← 返回首页</a>
+
+        <!-- 头部 -->
+        <div class="header">
+            <h1>冒泡排序</h1>
+            <p>经典的冒泡排序算法可视化演示</p>
+        </div>
+
+        <!-- 算法信息 -->
+        <div class="algorithm-info">
+            <h3>算法描述</h3>
+            <p>冒泡排序是一种简单的排序算法，它重复地遍历要排序的列表，比较相邻的两个元素，如果它们的顺序错误就把它们交换过来。遍历列表的工作是重复地进行直到没有再需要交换的元素，也就是说该列表已经排序完成。</p>
+            <div class="complexity">
+                <div class="complexity-item">时间复杂度: O(n²)</div>
+                <div class="complexity-item">空间复杂度: O(1)</div>
+            </div>
+        </div>
+
+        <!-- 数组输入 -->
+        <div class="array-input">
+            <h3>输入数组</h3>
+            <div class="input-group">
+                <input type="text" id="arrayInput" placeholder="请输入数组，用逗号分隔，例如：5,3,8,4,2">
+                <button class="btn btn-primary" onclick="generateRandomArray()">生成随机数组</button>
+                <button class="btn btn-secondary" onclick="startSort()">开始排序</button>
+            </div>
+        </div>
+
+        <!-- 画布容器 -->
+        <div class="canvas-container">
+            <canvas id="visualizationCanvas"></canvas>
+        </div>
+
+        <!-- 控制面板 -->
+        <div class="controls">
+            <button class="btn btn-success" onclick="playPause()" id="playPauseBtn">播放</button>
+            <button class="btn btn-warning" onclick="reset()">重置</button>
+            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
+            <button class="btn btn-primary" onclick="nextStep()">下一步</button>
+            <div class="slider-container">
+                <label for="speedSlider">速度:</label>
+                <input type="range" id="speedSlider" class="slider" min="100" max="2000" value="500" step="100">
+                <span id="speedValue">500ms</span>
+            </div>
+        </div>
+
+        <!-- 步骤信息 -->
+        <div class="step-info">
+            <h3>当前步骤</h3>
+            <div id="stepDescription">请点击"开始排序"按钮开始可视化</div>
+            <div class="step-counter">
+                <span>步骤:</span>
+                <span id="stepNumber">0</span>
+                <span>/</span>
+                <span id="totalSteps">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer plugin-page">
+        <div class="container">
+            <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/transition.js"></script>
+    <script type="module">
+        // 动态导入模块
+        import BubbleSort from './algorithm.js';
+        import BubbleSortVisualizer from './visualization.js';
+
+        // 生成随机数组
+        function generateRandomArray() {
+            const size = 15;
+            const array = [];
+            for (let i = 0; i < size; i++) {
+                array.push(Math.floor(Math.random() * 100) + 1);
+            }
+            document.getElementById('arrayInput').value = array.join(',');
+        }
+
+        // 初始化可视化器
+        const visualizer = new BubbleSortVisualizer('visualizationCanvas');
+        let steps = [];
+
+        // 开始排序
+        function startSort() {
+            const input = document.getElementById('arrayInput').value;
+            const array = input.split(',').map(Number).filter(n => !isNaN(n));
+            
+            if (array.length === 0) {
+                alert('请输入有效的数组');
+                return;
+            }
+            
+            // 执行排序算法
+            steps = BubbleSort.sort(array);
+            
+            // 加载步骤到可视化器
+            visualizer.loadSteps(steps);
+            
+            // 更新步骤信息
+            updateStepInfo();
+        }
+
+        // 播放/暂停
+        function playPause() {
+            const btn = document.getElementById('playPauseBtn');
+            visualizer.togglePlay();
+            btn.textContent = visualizer.isPlaying ? '暂停' : '播放';
+        }
+
+        // 重置
+        function reset() {
+            const btn = document.getElementById('playPauseBtn');
+            visualizer.reset();
+            btn.textContent = '播放';
+            updateStepInfo();
+        }
+
+        // 上一步
+        function prevStep() {
+            visualizer.prevStep();
+            updateStepInfo();
+        }
+
+        // 下一步
+        function nextStep() {
+            visualizer.nextStep();
+            updateStepInfo();
+        }
+
+        // 更新步骤信息
+        function updateStepInfo() {
+            const stepInfo = visualizer.getCurrentStepInfo();
+            if (stepInfo) {
+                document.getElementById('stepDescription').textContent = stepInfo.description;
+                document.getElementById('stepNumber').textContent = visualizer.currentStep + 1;
+                document.getElementById('totalSteps').textContent = visualizer.steps.length;
+            }
+        }
+
+        // 速度控制
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        
+        speedSlider.addEventListener('input', (e) => {
+            const speed = parseInt(e.target.value);
+            visualizer.setSpeed(speed);
+            speedValue.textContent = speed + 'ms';
+        });
+
+        // 初始化页面时生成随机数组
+        window.onload = function() {
+            generateRandomArray();
+        };
+
+        // 将函数暴露到全局作用域，以便HTML内联事件处理器可以访问
+        window.generateRandomArray = generateRandomArray;
+        window.startSort = startSort;
+        window.playPause = playPause;
+        window.reset = reset;
+        window.prevStep = prevStep;
+        window.nextStep = nextStep;
+    </script>
+</body>
+</html>

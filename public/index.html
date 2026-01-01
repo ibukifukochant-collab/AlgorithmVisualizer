@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算法可视化平台</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/transition.css">
+</head>
+<body>
+    <header class="header main-page">
+        <div class="container">
+            <h1 class="logo">算法探索</h1>
+            <nav class="nav">
+                <a href="#" class="nav-link">首页</a>
+                <a href="#" class="nav-link">分类</a>
+                <a href="#" class="nav-link">关于</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main main-page">
+        <div class="container">
+            <section class="hero">
+                <h2>探索算法的魅力</h2>
+                <p>可视化展示各种算法的执行过程，让学习算法变得更加直观有趣</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索算法...">
+                    <button id="searchBtn">搜索</button>
+                </div>
+            </section>
+
+            <section class="filters">
+                <div class="filter-group">
+                    <label for="categoryFilter">分类：</label>
+                    <select id="categoryFilter">
+                        <option value="all">全部</option>
+                        <!-- 分类选项将通过JavaScript动态生成 -->
+                    </select>
+                </div>
+            </section>
+
+            <section class="plugins-grid" id="pluginsGrid">
+                <!-- 算法方格将通过JavaScript动态生成 -->
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer main-page">
+        <div class="container">
+            <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/transition.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

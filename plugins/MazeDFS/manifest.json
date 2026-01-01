@@ -1,0 +1,12 @@
+{
+  "name": "Maze DFS",
+  "description": "深度优先搜索算法在迷宫中的可视化探索过程，展示堆栈的压入和弹出操作",
+  "version": "1.0.0",
+  "author": "Algorithm Visualizer Team",
+  "category": "Graph",
+  "thumbnail": "maze-dfs.png",
+  "main": "algorithm.js",
+  "visualization": "visualization.js",
+  "style": "style.css",
+  "entry": "index.html"
+}
