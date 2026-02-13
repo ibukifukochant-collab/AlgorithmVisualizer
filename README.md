@@ -70,14 +70,14 @@ npm start
 4. **访问应用**
 打开浏览器访问 [http://localhost:3000](http://localhost:3000)
 
-## 📊 内置算法
+##  内置算法
 
-### 🔢 冒泡排序 (Bubble Sort)
+###  冒泡排序 (Bubble Sort)
 - **分类**: 排序算法
 - **复杂度**: O(n²)
 - **特点**: 简单直观的排序算法演示
 
-### 🧩 迷宫深度优先搜索 (Maze DFS)
+###  迷宫深度优先搜索 (Maze DFS)
 - **分类**: 图算法
 - **复杂度**: O(V+E)
 - **特点**: 
@@ -185,39 +185,6 @@ cd plugins/MyAlgorithm
 
 详细规范请参考：[插件开发指南](./PLUGIN_DEVELOPMENT_GUIDE.md)
 
-## 🤝 贡献指南
-
-我们欢迎社区贡献！请遵循以下流程：
-
-### 贡献流程
-
-1. **Fork项目**
-2. **创建功能分支** (`git checkout -b feature/AmazingFeature`)
-3. **提交更改** (`git commit -m 'Add some AmazingFeature'`)
-4. **推送到分支** (`git push origin feature/AmazingFeature`)
-5. **创建Pull Request**
-
-### 贡献类型
-
-- 🐛 **Bug修复** - 报告和修复问题
-- ✨ **新功能** - 实现新的算法插件
-- 📚 **文档改进** - 完善文档和教程
-- 🎨 **UI优化** - 改进用户体验
-- 🔧 **性能优化** - 提升系统性能
-
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
-
-## 🙏 致谢
-
-感谢所有为这个项目做出贡献的开发者！
-
-## 📞 联系方式
-
-- **项目主页**: [GitHub Repository]
-- **问题反馈**: [Issues]
-- **讨论区**: [Discussions]
 
 ---
 
