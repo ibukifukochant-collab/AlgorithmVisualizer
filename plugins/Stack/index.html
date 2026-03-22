@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈操作与动态规划</title>
+    <link rel="stylesheet" href="/css/transition.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container plugin-page">
+        <!-- 返回按钮 -->
+        <a href="/" class="back-btn">← 返回首页</a>
+
+        <!-- 头部 -->
+        <div class="header">
+            <h1>栈操作与动态规划</h1>
+            <p>可视化展示栈操作生成不同输出序列的过程，并使用动态规划二维数组计算可能的输出序列总数</p>
+        </div>
+
+        <!-- 算法信息 -->
+        <div class="algorithm-info">
+            <h3>算法描述</h3>
+            <p>对于给定的操作数序列 1,2,…,n，我们可以进行两种操作：将一个数从操作数序列的头端移到栈的头端（push操作），或将一个数从栈的头端移到输出序列的尾端（pop操作）。使用这两种操作，可以得到一系列不同的输出序列。本算法使用动态规划二维数组计算可能得到的输出序列总数。</p>
+            <div class="complexity">
+                <div class="complexity-item">时间复杂度: O(n²)</div>
+                <div class="complexity-item">空间复杂度: O(n²)</div>
+            </div>
+        </div>
+
+        <!-- n值输入 -->
+        <div class="n-input">
+            <h3>输入参数</h3>
+            <div class="input-group">
+                <label for="nValue">n值 (操作数序列长度):</label>
+                <input type="number" id="nValue" value="3" min="1" max="8">
+                <button class="btn btn-primary" onclick="calculateSequences()">计算序列总数</button>
+            </div>
+        </div>
+
+        <!-- 画布容器 -->
+        <div class="canvas-container">
+            <canvas id="visualizationCanvas"></canvas>
+        </div>
+
+        <!-- 控制面板 -->
+        <div class="controls">
+            <button class="btn btn-success" onclick="playPause()" id="playPauseBtn">播放</button>
+            <button class="btn btn-warning" onclick="reset()">重置</button>
+            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
+            <button class="btn btn-primary" onclick="nextStep()">下一步</button>
+            <div class="slider-container">
+                <label for="speedSlider">速度:</label>
+                <input type="range" id="speedSlider" class="slider" min="100" max="2000" value="500" step="100">
+                <span id="speedValue">500ms</span>
+            </div>
+        </div>
+
+        <!-- 步骤信息 -->
+        <div class="step-info">
+            <h3>当前步骤</h3>
+            <div id="stepDescription">请点击"计算序列总数"按钮开始可视化</div>
+            <div class="step-counter">
+                <span>步骤:</span>
+                <span id="stepNumber">0</span>
+                <span>/</span>
+                <span id="totalSteps">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer plugin-page">
+        <div class="container">
+            <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/transition.js"></script>
+    <script type="module">
+        // 动态导入模块
+        import StackAlgorithm from './algorithm.js';
+        import StackVisualizer from './visualization.js';
+
+        // 初始化可视化器
+        const visualizer = new StackVisualizer('visualizationCanvas');
+        let steps = [];
+
+        // 计算序列总数
+        function calculateSequences() {
+            const n = parseInt(document.getElementById('nValue').value);
+            
+            if (isNaN(n) || n < 1 || n > 8) {
+                alert('请输入有效的n值（1-8）');
+                return;
+            }
+            
+            // 执行算法
+            steps = StackAlgorithm.calculateOutputSequences(n);
+            
+            // 加载步骤到可视化器
+            visualizer.loadSteps(steps);
+            
+            // 更新步骤信息
+            updateStepInfo();
+        }
+
+        // 播放/暂停
+        function playPause() {
+            const btn = document.getElementById('playPauseBtn');
+            visualizer.playPause();
+            btn.textContent = visualizer.isPlaying ? '暂停' : '播放';
+        }
+
+        // 重置
+        function reset() {
+            const btn = document.getElementById('playPauseBtn');
+            visualizer.reset();
+            btn.textContent = '播放';
+            updateStepInfo();
+        }
+
+        // 上一步
+        function prevStep() {
+            visualizer.prevStep();
+            updateStepInfo();
+        }
+
+        // 下一步
+        function nextStep() {
+            visualizer.nextStep();
+            updateStepInfo();
+        }
+
+        // 更新步骤信息
+        function updateStepInfo() {
+            const stepInfo = visualizer.getCurrentStepInfo();
+            if (stepInfo) {
+                document.getElementById('stepDescription').textContent = stepInfo.description;
+                document.getElementById('stepNumber').textContent = visualizer.currentStep + 1;
+                document.getElementById('totalSteps').textContent = visualizer.steps.length;
+            }
+        }
+
+        // 速度控制
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        
+        speedSlider.addEventListener('input', (e) => {
+            const speed = parseInt(e.target.value);
+            visualizer.setSpeed(speed);
+            speedValue.textContent = speed + 'ms';
+        });
+
+        // 将函数暴露到全局作用域，以便HTML内联事件处理器可以访问
+        window.calculateSequences = calculateSequences;
+        window.playPause = playPause;
+        window.reset = reset;
+        window.prevStep = prevStep;
+        window.nextStep = nextStep;
+    </script>
+</body>
+</html>

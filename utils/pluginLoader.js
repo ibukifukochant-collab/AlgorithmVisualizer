@@ -10,6 +10,9 @@ class PluginLoader {
 
   // 扫描插件目录
   scanPlugins() {
+    this.plugins = [];
+    container.clearPlugins();
+    
     try {
       const pluginDirs = fs.readdirSync(this.pluginsDir);
       

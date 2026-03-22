@@ -1,0 +1,1295 @@
+/* 可视化编辑器样式 */
+
+/* 编辑器头部 */
+.editor-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.editor-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    max-width: 100%;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.editor-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.header-center {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 20px;
+}
+
+.plugin-name-input {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.plugin-name-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+}
+
+.header-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.preview-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.preview-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.generate-btn {
+    background: white;
+    color: #667eea;
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 编辑器主体 */
+.editor-main {
+    display: flex;
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+}
+
+/* 组件面板 */
+.component-panel {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f8fafc;
+}
+
+.panel-header h3 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.component-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.component-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: grab;
+    transition: all 0.3s ease;
+}
+
+.component-item:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.component-item:active {
+    cursor: grabbing;
+}
+
+.component-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+.component-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.component-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.component-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* 画布区域 */
+.canvas-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f1f5f9;
+}
+
+.canvas-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.toolbar-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolbar-btn:hover {
+    background: #e2e8f0;
+    color: #667eea;
+}
+
+.toolbar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: #e5e7eb;
+    margin: 0 5px;
+}
+
+.zoom-level {
+    font-size: 0.85rem;
+    color: #64748b;
+    min-width: 50px;
+    text-align: center;
+}
+
+.canvas-container {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#editorCanvas {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Slots 容器 */
+.slots-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* 单个 Slot */
+.slot {
+    width: 100%;
+    max-width: 800px;
+    min-height: 150px;
+    border: 3px dashed #cbd5e1;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.slot:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.slot.drag-over {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    border-style: solid;
+    transform: scale(1.02);
+}
+
+.slot-placeholder-text {
+    color: #94a3b8;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slot-placeholder-text::before {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 已填充组件的 Slot */
+.slot.filled {
+    border-style: solid;
+    border-color: #e5e7eb;
+    background: white;
+    min-height: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.slot.filled:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+}
+
+.slot.filled.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Slot 头部 */
+.slot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 9px 9px 0 0;
+    width: 100%;
+}
+
+.slot-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slot-icon {
+    font-size: 1.2rem;
+}
+
+.slot-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.slot-id {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.slot-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.slot-action-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.slot-action-btn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.slot-action-btn.delete:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* Slot 内容 */
+.slot-content {
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slot-canvas {
+    border-radius: 8px;
+    background: #f8fafc;
+    display: block;
+}
+
+/* 柱状图预览 */
+.bar-chart-preview {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 120px;
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.bar-preview-item {
+    flex: 1;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px 4px 0 0;
+    min-width: 20px;
+    max-width: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.bar-preview-item:hover {
+    transform: scaleY(1.05);
+    filter: brightness(1.1);
+}
+
+/* 空状态 */
+.slots-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: #94a3b8;
+}
+
+.slots-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.slots-empty-text {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.slots-empty-hint {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+}
+
+/* 属性面板 */
+.property-panel {
+    width: 320px;
+    background: white;
+    border-left: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+}
+
+.property-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.no-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.property-group {
+    margin-bottom: 20px;
+}
+
+.property-group-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.property-item {
+    margin-bottom: 15px;
+}
+
+.property-item label {
+    display: block;
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.property-item input,
+.property-item select,
+.property-item textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.property-item input:focus,
+.property-item select:focus,
+.property-item textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.property-item textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* 动画预览区域 */
+.animation-preview {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 200;
+}
+
+.animation-preview.active {
+    display: block;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.preview-header h3 {
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.close-preview {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #f1f5f9;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.close-preview:hover {
+    background: #e2e8f0;
+}
+
+.preview-canvas-container {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#previewCanvas {
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+}
+
+.preview-controls {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.preview-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#previewPlayBtn {
+    background: #667eea;
+    color: white;
+}
+
+#previewPlayBtn:hover {
+    background: #5568d3;
+}
+
+#previewResetBtn {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+#previewResetBtn:hover {
+    background: #e2e8f0;
+}
+
+/* 模态框 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h3 {
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+
+.modal-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #f1f5f9;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: #e2e8f0;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-btn.cancel {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.modal-btn.cancel:hover {
+    background: #e2e8f0;
+}
+
+.modal-btn.confirm {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.modal-btn.confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* 组件选中状态 */
+.component-selected {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* 拖拽占位符 */
+.drop-placeholder {
+    border: 2px dashed #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .component-panel {
+        width: 240px;
+    }
+    
+    .property-panel {
+        width: 280px;
+    }
+}
+
+@media (max-width: 992px) {
+    .editor-main {
+        flex-direction: column;
+    }
+    
+    .component-panel,
+    .property-panel {
+        width: 100%;
+        max-height: 200px;
+    }
+    
+    .component-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .component-item {
+        width: calc(50% - 5px);
+        margin-bottom: 0;
+    }
+}
+
+/* 动画按钮组 */
+.animation-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.animation-btn {
+    padding: 8px 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    background: white;
+    color: #475569;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.animation-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+/* 数据编辑器 */
+.data-editor {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.data-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.data-row input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.data-row button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ef4444;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.data-row button:hover {
+    background: #dc2626;
+}
+
+.add-data-btn {
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #e5e7eb;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+.add-data-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+/* ========== 编辑器动画效果 ========== */
+
+/* 头部入场动画 */
+.editor-header {
+    animation: headerSlideDown 0.5s ease-out;
+}
+
+@keyframes headerSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header-left {
+    animation: fadeInLeft 0.5s ease-out 0.2s both;
+}
+
+.header-center {
+    animation: fadeInUp 0.5s ease-out 0.3s both;
+}
+
+.header-right {
+    animation: fadeInRight 0.5s ease-out 0.2s both;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 组件面板动画 */
+.component-panel {
+    animation: panelSlideLeft 0.5s ease-out 0.4s both;
+}
+
+@keyframes panelSlideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.panel-header {
+    animation: fadeInDown 0.4s ease-out 0.5s both;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 组件项动画 */
+.component-item {
+    animation: itemPopIn 0.4s ease-out both;
+    animation-delay: calc(var(--item-index, 0) * 0.1s + 0.6s);
+}
+
+@keyframes itemPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    70% {
+        transform: scale(1.05) translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 组件项悬停动画增强 */
+.component-item:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.component-item:active {
+    animation: itemClick 0.2s ease;
+}
+
+@keyframes itemClick {
+    0% {
+        transform: scale(1.02);
+    }
+    50% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 属性面板动画 */
+.property-panel {
+    animation: panelSlideRight 0.5s ease-out 0.4s both;
+}
+
+@keyframes panelSlideRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 画布区域动画 */
+.canvas-area {
+    animation: canvasFadeIn 0.6s ease-out 0.5s both;
+}
+
+@keyframes canvasFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.canvas-toolbar {
+    animation: toolbarSlideDown 0.4s ease-out 0.6s both;
+}
+
+@keyframes toolbarSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 工具栏按钮动画 */
+.toolbar-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.toolbar-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.toolbar-btn:active::after {
+    width: 60px;
+    height: 60px;
+}
+
+/* 头部按钮动画 */
+.header-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.header-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.header-btn:hover::before {
+    left: 100%;
+}
+
+/* 生成按钮特殊动画 */
+.generate-btn {
+    animation: btnPulse 2s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+}
+
+/* 模态框动画 */
+.modal.active {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal.active .modal-content {
+    animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 动画预览面板 */
+.animation-preview.active {
+    animation: previewSlideIn 0.3s ease-out;
+}
+
+@keyframes previewSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 属性组动画 */
+.property-group {
+    animation: propertyFadeIn 0.4s ease-out both;
+    animation-delay: calc(var(--group-index, 0) * 0.1s);
+}
+
+@keyframes propertyFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 动画按钮悬停效果 */
+.animation-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.animation-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.3s ease;
+}
+
+.animation-btn:hover::before {
+    left: 100%;
+}
+
+/* 数据行动画 */
+.data-row {
+    animation: rowSlideIn 0.3s ease-out both;
+    animation-delay: calc(var(--row-index, 0) * 0.05s);
+}
+
+@keyframes rowSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 添加数据按钮动画 */
+.add-data-btn {
+    transition: all 0.3s ease;
+}
+
+.add-data-btn:hover {
+    animation: addBtnBounce 0.4s ease;
+}
+
+@keyframes addBtnBounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* 输入框聚焦动画 */
+input:focus,
+select:focus,
+textarea:focus {
+    animation: inputFocus 0.3s ease;
+}
+
+@keyframes inputFocus {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Logo 动画 */
+.editor-title {
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* 返回链接动画 */
+.back-link {
+    position: relative;
+}
+
+.back-link::before {
+    content: '←';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover::before {
+    left: -5px;
+    opacity: 1;
+}

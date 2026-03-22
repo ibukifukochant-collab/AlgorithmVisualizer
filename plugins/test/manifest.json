@@ -1,0 +1,12 @@
+{
+  "name": "test",
+  "description": "test 算法可视化",
+  "version": "1.0.0",
+  "author": "Algorithm Visualizer",
+  "category": "Algorithm",
+  "thumbnail": "test.png",
+  "main": "algorithm.js",
+  "visualization": "visualization.js",
+  "style": "style.css",
+  "entry": "index.html"
+}

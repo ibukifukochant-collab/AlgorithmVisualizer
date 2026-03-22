@@ -1,0 +1,12 @@
+{
+  "name": "正则表达式最长匹配长度",
+  "description": "可视化展示正则表达式分治计算最长匹配字符串长度的过程",
+  "version": "1.0.0",
+  "author": "Algorithm Visualizer Team",
+  "category": "Algorithm",
+  "thumbnail": "regex-max-length.png",
+  "main": "algorithm.js",
+  "visualization": "visualization.js",
+  "style": "style.css",
+  "entry": "index.html"
+}

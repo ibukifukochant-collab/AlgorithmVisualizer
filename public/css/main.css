@@ -369,3 +369,13 @@ body {
 .empty-state p {
     opacity: 0.8;
 }
+
+/* 编辑器链接样式 */
+.editor-link {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+}
+
+.editor-link:hover {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}

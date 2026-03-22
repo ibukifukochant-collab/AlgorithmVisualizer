@@ -1,0 +1,12 @@
+{
+  "name": "栈操作与动态规划",
+  "description": "可视化展示栈操作生成不同输出序列的过程，并使用动态规划二维数组计算可能的输出序列总数",
+  "version": "1.0.0",
+  "author": "Algorithm Visualizer Team",
+  "category": "Data Structure",
+  "thumbnail": "stack.png",
+  "main": "algorithm.js",
+  "visualization": "visualization.js",
+  "style": "style.css",
+  "entry": "index.html"
+}

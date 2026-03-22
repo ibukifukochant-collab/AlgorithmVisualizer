@@ -78,6 +78,11 @@ class Container {
     }
     this.plugins.clear();
   }
+
+  // 清除插件（不调用销毁方法）
+  clearPlugins() {
+    this.plugins.clear();
+  }
 }
 
 module.exports = new Container();

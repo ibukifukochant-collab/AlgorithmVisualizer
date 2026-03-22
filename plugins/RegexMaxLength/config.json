@@ -1,0 +1,23 @@
+{
+  "title": "正则表达式最长匹配长度",
+  "name": "正则表达式最长匹配长度",
+  "description": "可视化展示正则表达式分治计算最长匹配字符串长度的过程",
+  "timeComplexity": "O(n²)",
+  "spaceComplexity": "O(n)",
+  "inputSection": {
+    "label": "输入正则表达式：",
+    "placeholder": "例如：((xx|xxx)x|(x|xx))xx",
+    "defaultValue": "((xx|xxx)x|(x|xx))xx",
+    "buttonText": "计算"
+  },
+  "algorithmSteps": {
+    "title": "计算规则：",
+    "items": [
+      "基本情况：x 的长度为 1",
+      "括号表达式：(A) 的长度等于 A 的长度",
+      "选择表达式：A|B 的长度等于 A 和 B 中的最大值",
+      "连接表达式：AB 的长度等于 A 和 B 的和"
+    ]
+  },
+  "script": "./plugin-script.js"
+}

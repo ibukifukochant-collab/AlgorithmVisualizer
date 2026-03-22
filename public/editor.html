@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可视化编辑器 - 算法可视化平台</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+    <header class="header editor-header">
+        <div class="container editor-header-container">
+            <div class="header-left">
+                <a href="/" class="back-link">← 返回首页</a>
+                <h1 class="editor-title">可视化编辑器</h1>
+            </div>
+            <div class="header-center">
+                <input type="text" id="pluginName" class="plugin-name-input" placeholder="输入插件名称" value="MyAlgorithm">
+            </div>
+            <div class="header-right">
+                <button id="previewBtn" class="header-btn preview-btn">预览</button>
+                <button id="generateBtn" class="header-btn generate-btn">生成插件</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="editor-main">
+        <aside class="component-panel">
+            <div class="panel-header">
+                <h3>组件库</h3>
+            </div>
+            <div class="component-list" id="componentList">
+                <div class="component-item" draggable="true" data-type="bar-chart">
+                    <div class="component-icon">📊</div>
+                    <div class="component-info">
+                        <span class="component-name">柱状图</span>
+                        <span class="component-desc">用于展示数组/列表数据</span>
+                    </div>
+                </div>
+                <div class="component-item" draggable="true" data-type="stack">
+                    <div class="component-icon">📚</div>
+                    <div class="component-info">
+                        <span class="component-name">栈</span>
+                        <span class="component-desc">横向栈，从右向左入栈</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="canvas-area">
+            <div class="canvas-toolbar">
+                <button id="undoBtn" class="toolbar-btn" title="撤销">↶</button>
+                <button id="redoBtn" class="toolbar-btn" title="重做">↷</button>
+                <div class="toolbar-divider"></div>
+                <button id="clearBtn" class="toolbar-btn" title="清空">🗑️</button>
+            </div>
+            <div class="slots-container" id="slotsContainer">
+            </div>
+        </section>
+
+        <aside class="property-panel">
+            <div class="panel-header">
+                <h3>属性面板</h3>
+            </div>
+            <div class="property-content" id="propertyContent">
+                <div class="no-selection">
+                    <p>请选择一个组件</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <div class="modal" id="generateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>生成插件模板</h3>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="genPluginName">插件名称：</label>
+                    <input type="text" id="genPluginName" placeholder="例如：QuickSort">
+                </div>
+                <div class="form-group">
+                    <label for="genPluginDesc">插件描述：</label>
+                    <textarea id="genPluginDesc" placeholder="描述插件的功能"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="genPluginAuthor">作者：</label>
+                    <input type="text" id="genPluginAuthor" placeholder="作者名称">
+                </div>
+                <div class="form-group">
+                    <label for="genPluginCategory">分类：</label>
+                    <select id="genPluginCategory">
+                        <option value="Algorithm">算法</option>
+                        <option value="DataStructure">数据结构</option>
+                        <option value="Other">其他</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelGenerate" class="modal-btn cancel">取消</button>
+                <button id="confirmGenerate" class="modal-btn confirm">生成</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script type="module" src="js/editor/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">算法可视化</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/css/transition.css">
+    <link rel="stylesheet" href="/css/plugin.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container plugin-page">
+        <a href="/" class="back-btn">← 返回首页</a>
+
+        <header class="header">
+            <h1 id="pluginTitle"></h1>
+            <p id="pluginDescription"></p>
+        </header>
+
+        <main class="main">
+            <section class="input-section" id="inputSection">
+            </section>
+
+            <section class="canvas-section">
+                <canvas id="visualizationCanvas"></canvas>
+            </section>
+
+            <section class="controls-section">
+                <div class="controls-group">
+                    <button id="prevBtn" class="control-btn">上一步</button>
+                    <button id="playPauseBtn" class="control-btn primary">播放</button>
+                    <button id="nextBtn" class="control-btn">下一步</button>
+                    <button id="resetBtn" class="control-btn">重置</button>
+                </div>
+                <div class="speed-control">
+                    <label for="speedSlider">动画速度：</label>
+                    <input type="range" id="speedSlider" min="100" max="2000" value="500" step="100">
+                    <span id="speedValue">500ms</span>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="info-group">
+                    <h3>算法说明</h3>
+                    <div class="algorithm-info">
+                        <div class="complexity">
+                            <span class="label">时间复杂度：</span>
+                            <span class="value" id="timeComplexity"></span>
+                        </div>
+                        <div class="complexity">
+                            <span class="label">空间复杂度：</span>
+                            <span class="value" id="spaceComplexity"></span>
+                        </div>
+                    </div>
+                    <div class="algorithm-steps" id="algorithmSteps">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer plugin-page">
+        <div class="container">
+            <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/transition.js"></script>
+    <script src="/js/plugin.js"></script>
+    <script type="module" id="pluginScript">
+    </script>
+</body>
+</html>
